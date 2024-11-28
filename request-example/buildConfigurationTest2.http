@@ -1,33 +1,42 @@
-### 1.Generate auth token
-GET http://localhost:8111/authenticationTest.html?csrf
-Authorization: Basic admin admin
+### 1. Create project
+# @no-cookie-jar
+### Constants
+@host = localhost
 
-### 2. Create project
-POST http://admin:admin@localhost:8111/app/rest/projects
+### Generated test data
+@projectId = {{$random.integer(10)}}
+@buildTypeId = {{$random.integer(10)}}
+
+
+### 1. Create project
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/projects
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token:  eccd92a8-4405-4dd5-bc4e-7783009fee2b
+Authorization: Basic admin admin
 
 {
   "parentProject": {
     "locator": "_Root"
   },
-  "name": "name",
-  "id": "id",
+  "name": "{{projectId}}",
+  "id": "{{projectId}}",
   "copyAllAssociatedSettings": true
 }
 
-### 3. Create Build Configuration
-POST http://admin:admin@localhost:8111/app/rest/buildTypes
+
+### 2. Create build configuration
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/buildTypes
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token:  6b24d63c-5622-41ed-8d69-ed5e39337284
+Authorization: Basic admin admin
 
 {
-  "id": "id",
+  "id": "{{buildTypeId}}",
   "name": "Print hello world",
   "project": {
-    "id": "id"
+    "id": "{{projectId}}"
   },
   "steps": {
     "step": [
@@ -55,24 +64,15 @@ X-TC-CSRF-Token:  6b24d63c-5622-41ed-8d69-ed5e39337284
   }
 }
 
-### 4. Run build
-POST http://admin:admin@localhost:8111/app/rest/buildQueue
+### 3. Run build
+# @no-cookie-jar
+POST http://{{host}}:8111/app/rest/buildQueue
 Content-Type: application/json
 Accept: application/json
-X-TC-CSRF-Token:  6b24d63c-5622-41ed-8d69-ed5e39337284
+Authorization: Basic admin admin
 
 {
   "buildType": {
-    "id": "id"
+    "id": "{{buildTypeId}}"
   }
 }
-
-### 5. Check build status
-GET http://admin:admin@localhost:8111/app/rest/builds/id:2
-Content-Type: application/json
-Accept: application/json
-X-TC-CSRF-Token:  5818ec19-955d-4f0b-961d-ae5e51200d64
-
-
-
-
