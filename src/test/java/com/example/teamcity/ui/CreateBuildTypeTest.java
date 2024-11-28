@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
 
 @Test(groups = {"Regression"})
 public class CreateBuildTypeTest extends BaseUiTest {
-    private static final String REPO_URL = "https://github.com/avtumanin/teamcity-testing-framework";
+    private static final String REPO_URL = "https://github.com/DenisLomaevAQA/teamcity-testing-framework";
 
     @Test(description = "User should be able to create build type", groups = {"Positive"})
     public void userCreatesBuildType() {
