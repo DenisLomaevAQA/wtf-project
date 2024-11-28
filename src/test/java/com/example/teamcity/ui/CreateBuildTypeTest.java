@@ -46,8 +46,8 @@ public class CreateBuildTypeTest extends BaseUiTest {
 
         superUserUnCheckedRequests.getRequest(Endpoint.BUILD_TYPES)
                 .read("name:" + testData.getBuildType().getName())
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_NOT_FOUND);
+                .then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND);
+
+        CreateBuildTypePage.shouldHaveErrorMessage("Build configuration name must not be empty");
     }
 }
